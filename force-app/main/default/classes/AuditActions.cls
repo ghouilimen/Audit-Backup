@@ -257,6 +257,22 @@ public static List<String> getActions() {
             
             return m;
           }
+@AuraEnabled(cacheable=true)
+public static List<AuditContact__c> findAuditsByUsers() {
+        //String key = '%' + searchKey + '%';
+       
+          List<AuditContact__c>  bb=[ SELECT Concerned_User__c,ConcernedObject__c , ChangeDate__c ,Action__c, 
+             ConcernedField__c, OldValue__c , NewValue__c
+            FROM AuditContact__c
+           // WHERE ConcernedObject__c LIKE :key 
+            Order by ChangeDate__c ] ;
+            if(bb.isEmpty()) {
+              throw new AuraHandledException('No Record Found..');
+          }
+          system.debug(bb);
+          return bb; 
+          
+    }
 }
 
 
