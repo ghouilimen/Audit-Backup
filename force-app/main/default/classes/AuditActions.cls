@@ -241,7 +241,7 @@ public static Integer countAccountactions() {
 public static List<String> getActions() {
            List<String> m = new List<String>();
             
-            //m.add('Contact actios');
+            m.add('Contact actios');
             m.add('Contract actions');
             m.add('Lead actions');
             m.add('Opportunity actions');
