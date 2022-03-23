@@ -1,5 +1,7 @@
 {
   "name": "salesforce-app",
+  "engines": {
+  "node": "6.11.1" },
   "private": true,
   "version": "1.0.0",
   "description": "Salesforce App",
@@ -38,11 +40,4 @@
       "eslint"
     ]
   }
-  {
-    "name": "audit-backup",
-    "description": "a really cool app",
-    "version": "1.0.0",
-    "engines": {
-      "node": "16.x"
-    }
 }
