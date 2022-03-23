@@ -4,7 +4,7 @@
   "node": "6.11.1" ,
   "npm": "6.x" },
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Salesforce App",
   "scripts": {
     "lint": "eslint **/{aura,lwc}/**",
