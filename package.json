@@ -1,5 +1,5 @@
 {
-  "name": "salesforce-app",
+  "name": "audit-backup",
   "engines": {
   "node": "6.11.1" ,
   "npm": "6.x" },
