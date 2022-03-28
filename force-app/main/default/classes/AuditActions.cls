@@ -257,7 +257,7 @@ public static List<String> getActions() {
             
             return m;
           }
-@AuraEnabled(cacheable=true)
+/*@AuraEnabled(cacheable=true)
 public static List<AuditContact__c> findAuditsByUsers() {
         //String key = '%' + searchKey + '%';
        
@@ -271,8 +271,41 @@ public static List<AuditContact__c> findAuditsByUsers() {
           }
           system.debug(bb);
           return bb; 
+      
+             String a ='update';
+          where Action__c LIKE \'%'+ a +'%\''
           
-    }
+    }*/
+    @AuraEnabled(cacheable=true)
+   public static List<AuditContact__c> getCon( String searchKey, String sortBy, String sortDirection) {
+  
+      
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,  OldValue__c , ConcernedField__c , NewValue__c  FROM AuditContact__c '  ;
+       system.debug('query---'+query);
+       if ( searchKey != null && searchKey != '' ) {
+           String key = '%' + searchKey + '%'; 
+           query += ' WHERE  Action__c LIKE :key';
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+     
+   }
+   @AuraEnabled(cacheable=true)
+   public static List<AuditContact__c> getAcc( String searchKey, String sortBy, String sortDirection) {
+  
+      
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,  OldValue__c , ConcernedField__c , NewValue__c  FROM AuditAccount__c '  ;
+       system.debug('query---'+query);
+       if ( searchKey != null && searchKey != '' ) {
+           String key = '%' + searchKey + '%'; 
+           query += ' WHERE  Action__c LIKE :key';
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
 }
-
+}
 
