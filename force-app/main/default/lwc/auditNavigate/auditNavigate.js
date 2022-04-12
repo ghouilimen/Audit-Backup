@@ -26,37 +26,33 @@ export default class AuditNavigate extends NavigationMixin(LightningElement) {
     }
     navigateToAuditOpportunity(){
         this[NavigationMixin.Navigate]({
-            type:'standard__objectPage',
+            type:'standard__webPage',
             attributes:{
-                objectApiName: 'AuditOpportunity__c',
-                actionName: 'home'
+                url:"https://wise-wolf-n2hypj-dev-ed.lightning.force.com/lightning/n/Opportunity_audit_details"
             }
         })
     }
     navigateToAuditProduct(){
         this[NavigationMixin.Navigate]({
-            type:'standard__objectPage',
+            type:'standard__webPage',
             attributes:{
-                objectApiName: 'AuditProduct__c',
-                actionName: 'home'
+               url:"https://wise-wolf-n2hypj-dev-ed.lightning.force.com/lightning/n/Porduct_audit_details"
             }
         })
     }
     navigateToAuditContract(){
         this[NavigationMixin.Navigate]({
-            type:'standard__objectPage',
+            type:'standard__webPage',
             attributes:{
-                objectApiName: 'AuditContract__c',
-                actionName: 'home'
+               url:"https://wise-wolf-n2hypj-dev-ed.lightning.force.com/lightning/n/Contract_audit_details"
             }
         })
     }
     navigateToAuditLead(){
         this[NavigationMixin.Navigate]({
-            type:'standard__objectPage',
+            type:'standard__webPage',
             attributes:{
-                objectApiName: 'AuditLead__c',
-                actionName: 'home'
+               url:"https://wise-wolf-n2hypj-dev-ed.lightning.force.com/lightning/n/Lead_audit_details"
             }
         })
     }

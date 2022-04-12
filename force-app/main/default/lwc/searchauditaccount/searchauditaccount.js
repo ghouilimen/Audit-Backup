@@ -26,6 +26,11 @@ const columns = [
         fieldName: 'ConcernedField__c',
         sortable: true
     },
+    {
+        label: 'User',
+        fieldName: 'ConcernedUser__c',
+        sortable: true
+    }
    
     /*{
         label: 'Old Value',
@@ -38,7 +43,7 @@ const columns = [
     },*/
 ];
 
-export default class SearchauditContact extends LightningElement {
+export default class SearchauditAccount extends LightningElement {
     @track value;
     @track error;
     @track data;

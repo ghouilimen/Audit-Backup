@@ -3,10 +3,15 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import chartjs from '@salesforce/resourceUrl/ChartJS';
 import { loadScript } from 'lightning/platformResourceLoader';
 import getContactActions from '@salesforce/apex/AuditActions.getContactActions';
+import countContactactions from '@salesforce/apex/AuditActions.countContactactions';
+
+
 
 
 export default class contactChart extends LightningElement {
     @track listAA;
+    @track actions ;
+    actions=countContactactions();
   
    chart;
    chartjsInitialized = false;

@@ -8,7 +8,9 @@ public with sharing class OpportunityTriggerHelper {
        obj.ChangeDate__c = Date.today();
        obj.Action__c = 'insert';
        obj.ConcernedObject__c = objHelper.getsobjecttype().getdescribe().getname();
-       obj.Concerned_User__c = UserInfo.getUserId();
+       obj.ConcernedUser__c = UserInfo.getName();
+       obj.User_ID__c = UserInfo.getUserId();
+
        return obj;
      }
      public void sendNotification(String action, String verbe) {
@@ -57,7 +59,8 @@ public with sharing class OpportunityTriggerHelper {
        obj.Action__c = 'update';
        obj.ObjectId__c = (Id) old.get('Id');
        obj.Name = (String)old.get('Name');
-       obj.Concerned_User__c = UserInfo.getUserId();
+       obj.ConcernedUser__c = UserInfo.getName();
+       obj.User_ID__c = UserInfo.getUserId();
        obj.ConcernedObject__c = nv.getsobjecttype().getdescribe().getname();
        obj.ConcernedField__c = String.valueof(str);
        obj.OldValue__c = String.valueof(old.get(str));
@@ -78,7 +81,9 @@ public with sharing class OpportunityTriggerHelper {
    String IdObj= (Id) objHelper.get('Id');
    obj.ObjectId__c = IdObj;
    obj.ConcernedObject__c = objHelper.getsobjecttype().getdescribe().getname();
-   obj.Concerned_User__c = UserInfo.getUserId();
+   obj.ConcernedUser__c = UserInfo.getName();
+   obj.User_ID__c = UserInfo.getUserId();
+
    return obj;
  }
 }

@@ -11,7 +11,8 @@ public with sharing class ContractTriggerHelper {
         obj.ChangeDate__c = Date.today();
         obj.Action__c = 'insert';
         obj.ConcernedObject__c = objHelper.getsobjecttype().getdescribe().getname();
-        obj.Concerned_User__c = UserInfo.getUserId();
+        obj.ConcernedUser__c = UserInfo.getName();
+        obj.User_ID__c = UserInfo.getUserId();
         return obj;
       }
       public void sendNotification(String action, String verbe) {
@@ -60,8 +61,8 @@ public with sharing class ContractTriggerHelper {
         obj.Action__c = 'update';
         obj.ObjectId__c = (Id) old.get('Id');
         obj.Name = (String)old.get('Name');
-        obj.Concerned_User__c = UserInfo.getUserId();
-        obj.ConcernedObject__c = nv.getsobjecttype().getdescribe().getname();
+        obj.ConcernedUser__c = UserInfo.getName();
+        obj.User_ID__c = UserInfo.getUserId();        obj.ConcernedObject__c = nv.getsobjecttype().getdescribe().getname();
         obj.ConcernedField__c = String.valueof(str);
         obj.OldValue__c = String.valueof(old.get(str));
         obj.NewValue__c = String.valueof(nv.get(str));
@@ -81,7 +82,8 @@ public with sharing class ContractTriggerHelper {
     String IdObj= (Id) objHelper.get('Id');
     obj.ObjectId__c = IdObj;
     obj.ConcernedObject__c = objHelper.getsobjecttype().getdescribe().getname();
-    obj.Concerned_User__c = UserInfo.getUserId();
-    return obj;
+    obj.ConcernedUser__c = UserInfo.getName();
+    obj.User_ID__c = UserInfo.getUserId();   
+     return obj;
   }
 }

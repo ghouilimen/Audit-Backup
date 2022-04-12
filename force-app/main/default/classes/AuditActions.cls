@@ -280,7 +280,7 @@ public static List<AuditContact__c> findAuditsByUsers() {
    public static List<AuditContact__c> getCon( String searchKey, String sortBy, String sortDirection) {
   
       
-       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,  OldValue__c , ConcernedField__c , NewValue__c  FROM AuditContact__c '  ;
+       String query = 'SELECT   ConcernedUser__c  , ChangeDate__c  , ObjectId__c , Action__c,  OldValue__c , ConcernedField__c , NewValue__c  FROM AuditContact__c '  ;
        system.debug('query---'+query);
        if ( searchKey != null && searchKey != '' ) {
            String key = '%' + searchKey + '%'; 
@@ -293,10 +293,70 @@ public static List<AuditContact__c> findAuditsByUsers() {
      
    }
    @AuraEnabled(cacheable=true)
-   public static List<AuditContact__c> getAcc( String searchKey, String sortBy, String sortDirection) {
+   public static List<AuditAccount__c> getAcc( String searchKey, String sortBy, String sortDirection) {
   
       
-       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,  OldValue__c , ConcernedField__c , NewValue__c  FROM AuditAccount__c '  ;
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,   ConcernedField__c , ConcernedUser__c  FROM AuditAccount__c '  ;
+       system.debug('query---'+query);
+       if ( searchKey != null && searchKey != '' ) {
+           String key = '%' + searchKey + '%'; 
+           query += ' WHERE  Action__c LIKE :key';
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+}
+@AuraEnabled(cacheable=true)
+   public static List<AuditContract__c> getContract( String searchKey, String sortBy, String sortDirection) {
+  
+      
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,   ConcernedField__c , ConcernedUser__c  FROM AuditContract__c '  ;
+       system.debug('query---'+query);
+       if ( searchKey != null && searchKey != '' ) {
+           String key = '%' + searchKey + '%'; 
+           query += ' WHERE  Action__c LIKE :key';
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+}
+@AuraEnabled(cacheable=true)
+   public static List<AuditLead__c> getLead( String searchKey, String sortBy, String sortDirection) {
+  
+      
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,   ConcernedField__c , ConcernedUser__c  FROM AuditLead__c '  ;
+       system.debug('query---'+query);
+       if ( searchKey != null && searchKey != '' ) {
+           String key = '%' + searchKey + '%'; 
+           query += ' WHERE  Action__c LIKE :key';
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+}
+@AuraEnabled(cacheable=true)
+   public static List<AuditOpportunity__c> getopp( String searchKey, String sortBy, String sortDirection) {
+  
+      
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,   ConcernedField__c , ConcernedUser__c  FROM AuditOpportunity__c '  ;
+       system.debug('query---'+query);
+       if ( searchKey != null && searchKey != '' ) {
+           String key = '%' + searchKey + '%'; 
+           query += ' WHERE  Action__c LIKE :key';
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+}
+@AuraEnabled(cacheable=true)
+   public static List<AuditProduct__c> getpro( String searchKey, String sortBy, String sortDirection) {
+  
+      
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,   ConcernedField__c , ConcernedUser__c  FROM AuditProduct__c '  ;
        system.debug('query---'+query);
        if ( searchKey != null && searchKey != '' ) {
            String key = '%' + searchKey + '%'; 

@@ -12,23 +12,25 @@ public with sharing class ContactTriggerHandler implements ITrigger {
 
     }
     public void bulkBefore() {
-        if(trigger.isInsert) {
-        //Here we will call before insert actions
-        //Here we will call after insert actions
+        if(trigger.isDelete) {
+        //Here we will call before delete actions
+        for (Contact c : oldItems) {
+            loggs.add(hp.deleteContact(c));
+          }
+          insert(loggs);
+          hp.sendNotification('Delete','deleted');
+        
        
         }
     }
         
         
     public void bulkAfter() {
-        if(trigger.isInsert) {
-            
-    
-            for (Contact c : newItems) {
-                
+
+        if(trigger.isInsert) { 
+            //Here we will call after insert actions         
+            for (Contact c : newItems) {             
                 loggs.add(hp.insertContact(c));}
-        
-              
               if (Schema.sObjectType.Contact.iscreateable()) {
                 insert(loggs);
                 hp.sendNotification('Insert', 'inserted');
@@ -52,11 +54,7 @@ public with sharing class ContactTriggerHandler implements ITrigger {
 
         } else if(trigger.isDelete) {
         //Here we will call after delete actions
-        for (Contact c : oldItems) {
-            loggs.add(hp.deleteContact(c));
-          }
-          insert(loggs);
-          hp.sendNotification('Delete','deleted');
+       
         } else if(trigger.isUndelete) {
         //Here we will call after undelete actions
         }

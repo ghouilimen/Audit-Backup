@@ -1,6 +1,6 @@
 import { LightningElement, wire, api, track} from 'lwc';
 import { refreshApex } from '@salesforce/apex';
-import getCon from '@salesforce/apex/AuditActions.getCon';
+import getopp from '@salesforce/apex/AuditActions.getopp';
 
 const columns = [
     
@@ -43,7 +43,7 @@ const columns = [
     },*/
 ];
 
-export default class SearchauditContact extends LightningElement {
+export default class Searchoppaudit extends LightningElement {
     @track value;
     @track error;
     @track data;
@@ -62,7 +62,7 @@ export default class SearchauditContact extends LightningElement {
     @track totalRecountCount = 0;
     @track totalPage = 0;
   
-    @wire(getCon, {searchKey: '$searchKey', sortBy: '$sortedBy', sortDirection: '$sortedDirection'})
+    @wire(getopp, {searchKey: '$searchKey', sortBy: '$sortedBy', sortDirection: '$sortedDirection'})
     wiredAccounts({ error, data }) {
         if (data) {
             console.log(data)
