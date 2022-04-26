@@ -241,12 +241,12 @@ public static Integer countAccountactions() {
 public static List<String> getActions() {
            List<String> m = new List<String>();
             
-            m.add('Contact actios');
-            m.add('Contract actions');
-            m.add('Lead actions');
-            m.add('Opportunity actions');
-            m.add('Account actions');
-            m.add('Product actions');
+            m.add('Contact ');
+            m.add('Contract');
+            m.add('Lead ');
+            m.add('Opportunity');
+            m.add('Account ');
+            m.add('Product ');
             m.add(String.valueOf(countContactactions()));
             m.add(String.valueOf(countContractactions()));
             m.add(String.valueOf(countLeadactions()));
@@ -257,31 +257,12 @@ public static List<String> getActions() {
             
             return m;
           }
-/*@AuraEnabled(cacheable=true)
-public static List<AuditContact__c> findAuditsByUsers() {
-        //String key = '%' + searchKey + '%';
-       
-          List<AuditContact__c>  bb=[ SELECT Concerned_User__c,ConcernedObject__c , ChangeDate__c ,Action__c, 
-             ConcernedField__c, OldValue__c , NewValue__c
-            FROM AuditContact__c
-           // WHERE ConcernedObject__c LIKE :key 
-            Order by ChangeDate__c ] ;
-            if(bb.isEmpty()) {
-              throw new AuraHandledException('No Record Found..');
-          }
-          system.debug(bb);
-          return bb; 
-      
-             String a ='update';
-          where Action__c LIKE \'%'+ a +'%\''
-          
-    }*/
+
     @AuraEnabled(cacheable=true)
    public static List<AuditContact__c> getCon( String searchKey, String sortBy, String sortDirection) {
   
       
        String query = 'SELECT   ConcernedUser__c  , ChangeDate__c  , ObjectId__c , Action__c,  OldValue__c , ConcernedField__c , NewValue__c  FROM AuditContact__c '  ;
-       system.debug('query---'+query);
        if ( searchKey != null && searchKey != '' ) {
            String key = '%' + searchKey + '%'; 
            query += ' WHERE  Action__c LIKE :key';
@@ -297,7 +278,6 @@ public static List<AuditContact__c> findAuditsByUsers() {
   
       
        String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,   ConcernedField__c , ConcernedUser__c  FROM AuditAccount__c '  ;
-       system.debug('query---'+query);
        if ( searchKey != null && searchKey != '' ) {
            String key = '%' + searchKey + '%'; 
            query += ' WHERE  Action__c LIKE :key';
@@ -312,7 +292,6 @@ public static List<AuditContact__c> findAuditsByUsers() {
   
       
        String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,   ConcernedField__c , ConcernedUser__c  FROM AuditContract__c '  ;
-       system.debug('query---'+query);
        if ( searchKey != null && searchKey != '' ) {
            String key = '%' + searchKey + '%'; 
            query += ' WHERE  Action__c LIKE :key';
@@ -327,7 +306,6 @@ public static List<AuditContact__c> findAuditsByUsers() {
   
       
        String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,   ConcernedField__c , ConcernedUser__c  FROM AuditLead__c '  ;
-       system.debug('query---'+query);
        if ( searchKey != null && searchKey != '' ) {
            String key = '%' + searchKey + '%'; 
            query += ' WHERE  Action__c LIKE :key';
@@ -342,7 +320,6 @@ public static List<AuditContact__c> findAuditsByUsers() {
   
       
        String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,   ConcernedField__c , ConcernedUser__c  FROM AuditOpportunity__c '  ;
-       system.debug('query---'+query);
        if ( searchKey != null && searchKey != '' ) {
            String key = '%' + searchKey + '%'; 
            query += ' WHERE  Action__c LIKE :key';
@@ -357,7 +334,6 @@ public static List<AuditContact__c> findAuditsByUsers() {
   
       
        String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,   ConcernedField__c , ConcernedUser__c  FROM AuditProduct__c '  ;
-       system.debug('query---'+query);
        if ( searchKey != null && searchKey != '' ) {
            String key = '%' + searchKey + '%'; 
            query += ' WHERE  Action__c LIKE :key';
@@ -367,5 +343,94 @@ public static List<AuditContact__c> findAuditsByUsers() {
        }
        return Database.query( query );
 }
+@AuraEnabled(cacheable=true)
+   public static List<AuditContact__c> getdeletedcon( Date searchkey, String sortBy, String sortDirection) {
+
+      String a ='delete';
+      
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,  ConcernedUser__c  FROM AuditContact__c where Action__c LIKE \'%'+ a +'%\'' ;
+       
+        // String b= '2022-04-18';
+        if (searchkey!=null && searchkey<Date.today()) {
+         query += ' and  ChangeDate__c=:searchkey';
+        }
+        System.debug(Date.today());
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+}
+@AuraEnabled(cacheable=true)
+   public static List<AuditContract__c> getdeletedcontr( Date searchkey, String sortBy, String sortDirection) {
+
+      String a ='delete';
+
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,  ConcernedUser__c  FROM AuditContract__c where Action__c LIKE \'%'+ a +'%\'' ;
+       if (searchkey!=null && searchkey<Date.today()) {
+        query += ' and  ChangeDate__c=:searchkey';
+       
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+}
+@AuraEnabled(cacheable=true)
+   public static List<AuditLead__c> getdeletedlead( Date searchkey, String sortBy, String sortDirection) {
+
+      String a ='delete';
+
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,  ConcernedUser__c  FROM AuditLead__c where Action__c LIKE \'%'+ a +'%\'' ;
+       if (searchkey!=null && searchkey<Date.today()) {
+        query += ' and  ChangeDate__c=:searchkey';  
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+}
+@AuraEnabled(cacheable=true)
+   public static List<AuditOpportunity__c> getdeletedopp( Date searchkey, String sortBy, String sortDirection) {
+
+      String a ='delete';
+
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,  ConcernedUser__c  FROM AuditOpportunity__c where Action__c LIKE \'%'+ a +'%\'' ;
+       if (searchkey!=null && searchkey<Date.today()) {
+        query += ' and  ChangeDate__c=:searchkey';  
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+}
+@AuraEnabled(cacheable=true)
+   public static List<AuditAccount__c> getdeletedacc( Date searchkey, String sortBy, String sortDirection) {
+
+      String a ='delete';
+
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,  ConcernedUser__c  FROM AuditAccount__c where Action__c LIKE \'%'+ a +'%\'' ;
+       if (searchkey!=null && searchkey<Date.today()) {
+        query += ' and  ChangeDate__c=:searchkey';  
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+}
+@AuraEnabled(cacheable=true)
+   public static List<AuditProduct__c> getdeletedpro( Date searchkey, String sortBy, String sortDirection) {
+
+      String a ='delete';
+
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c , Action__c,  ConcernedUser__c  FROM AuditProduct__c where Action__c LIKE \'%'+ a +'%\'' ;
+       if (searchkey!=null && searchkey<Date.today()) {
+        query += ' and  ChangeDate__c=:searchkey';  
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+}
+
 }
 
