@@ -73,17 +73,39 @@ public with sharing class OpportunityTriggerHelper {
    return obj;
 
  }
- public AuditOpportunity__c deleteOpportunity(SObject objHelper) {
-  
-   AuditOpportunity__c obj = new AuditOpportunity__c();
-   obj.ChangeDate__c = Date.today();
-   obj.Action__c = 'delete';
-   String IdObj= (Id) objHelper.get('Id');
-   obj.ObjectId__c = IdObj;
-   obj.ConcernedObject__c = objHelper.getsobjecttype().getdescribe().getname();
-   obj.ConcernedUser__c = UserInfo.getName();
-   obj.User_ID__c = UserInfo.getUserId();
-
-   return obj;
- }
+ public AuditOpportunity__c deleteOpportunity(Opportunity objhlp) {
+ 
+  AuditOpportunity__c obj = new AuditOpportunity__c();
+  public_backup_data__x bcp = new public_backup_data__x();
+  obj.ChangeDate__c = Date.today();
+  obj.Action__c = 'delete';
+  String IdObj= (Id) objhlp.get('Id');
+  obj.ObjectId__c = IdObj;
+  obj.ConcernedObject__c = objhlp.getsobjecttype().getdescribe().getname();
+  obj.ConcernedUser__c = UserInfo.getName();
+  obj.User_ID__c = UserInfo.getUserId();
+  obj.is_deleted__c = true;
+  List<AuditOpportunity__c> ac = [SELECT Id FROM AuditOpportunity__c WHERE
+  ObjectId__c LIKE :IdObj];
+  for (AuditOpportunity__c c : ac){
+    c.is_deleted__c = true;
+  }
+  DataBase.update(ac);
+   
+  Blob Key = Crypto.generateAesKey(128);
+  Blob data = Blob.valueOf(String.valueOf(JSON.serialize(objhlp)));
+  Blob encrypted = Crypto.encryptWithManagedIV('AES128', Key, data);
+  String encData = EncodingUtil.base64Encode(encrypted);
+//  System.debug(encData);
+  String enckey = EncodingUtil.base64Encode(Key);
+  bcp.deletedobj__c =encData; 
+  bcp.ObjectId__c = (Id) objhlp.get('Id');
+  bcp.prvkey__c = enckey; 
+  bcp.ObjType__c =objhlp.getsobjecttype().getdescribe().getname();
+  DateTime dt = System.now();
+  bcp.deleteDate__c = dt.Date();
+  Database.insertAsync(bcp);
+ 
+  return obj;
+}
 }

@@ -1,10 +1,19 @@
 <template>
-    <div class="slds-size_small">
-        <lightning-card title="Send Report as PDF" icon-name="custom:custom91">
-          <div><center><lightning-button variant="brand-outline" class="slds-m-left_x-small" label=" Contacts audits PDF"  onclick={sendReportMail}></lightning-button></center></div>       
-          <div><center><lightning-button variant="brand-outline" class="slds-m-left_x-small" label=" Contacts audits CSV"  onclick={sendCSVMail}></lightning-button></center></div>       
+ <!--<div class="slds-p-around_small slds-grid slds-grid--vertical-align-center slds-grid--align-center">-->
+        <lightning-card  icon-name="custom:custom91">
+          <img  src={img} alt="Card image cap" style="max-height:150px; display: block;
+                                                      margin-left: auto;
+                                                      margin-right: auto;
+                                                      width: 80%;">
+        <br>
+        <div style="margin-top:20px ;margin-left:10px">
+          <h5 >Audit Report</h5>
+          <p >If you want to check this week Report , send it via Email or download it.</p>
+          <lightning-button  variant="destructive" label="PREVIEW" title="Destructive action"  onclick={Preview}>Preview</lightning-button>
+          <lightning-button  variant="brand"  title="Primary action" class="slds-m-left_x-small"  label="Send PDF"  onclick={sendReportMail}></lightning-button>   
+          <lightning-button variant="brand"  title="Primary action" class="slds-m-left_x-small"  label="Send CSV" onclick={sendCSVMail}></lightning-button>
+        </div>
+          
         </lightning-card>
-    </div>
-    
-    
+      
 </template>

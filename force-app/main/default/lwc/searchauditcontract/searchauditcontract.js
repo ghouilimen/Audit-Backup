@@ -1,12 +1,21 @@
 import { LightningElement, wire, api, track} from 'lwc';
 import { refreshApex } from '@salesforce/apex';
 import getContract from '@salesforce/apex/AuditActions.getContract';
+import { NavigationMixin } from 'lightning/navigation';
 
+
+//const actions = [ {  label: 'view', name: 'view'}];
 const columns = [
     
     {
         label: 'Date',
         fieldName: 'ChangeDate__c',
+        type: 'date',
+        typeAttributes: {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+        },
         sortable: true
     },
     {
@@ -30,9 +39,12 @@ const columns = [
         label: 'User',
         fieldName: 'ConcernedUser__c',
         sortable: true
-    }
+    },
+    {label: 'View Details',
+    type: 'button',
+    typeAttributes:  {  label: 'view', name: 'view'}}
    
-   /* {
+    /*{
         label: 'Old Value',
         fieldName: 'OldValue__c ',    },
     {
@@ -43,7 +55,7 @@ const columns = [
     },*/
 ];
 
-export default class SearchauditContract extends LightningElement {
+export default class SearchauditContract  extends NavigationMixin(LightningElement) {
     @track value;
     @track error;
     @track data;
@@ -61,6 +73,23 @@ export default class SearchauditContract extends LightningElement {
     @track pageSize = 5; 
     @track totalRecountCount = 0;
     @track totalPage = 0;
+
+    handleclicks(event){
+        const row = event.detail.row ;
+        const actionName = event.detail.action.name;  
+        this.recordId = row.Id;
+        if ( actionName === 'view' ){
+            this[NavigationMixin.Navigate]({
+                type: 'standard__recordPage',
+                attributes: {
+                    recordId: row.Id,
+                   actionName: 'view'
+                }
+        });
+
+  }
+}
+
   
     @wire(getContract, {searchKey: '$searchKey', sortBy: '$sortedBy', sortDirection: '$sortedDirection'})
     wiredAccounts({ error, data }) {

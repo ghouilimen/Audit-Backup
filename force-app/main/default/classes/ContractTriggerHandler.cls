@@ -1,4 +1,5 @@
 public with sharing class ContractTriggerHandler implements ITrigger {
+
     ContractTriggerHelper hp= new ContractTriggerHelper();
     List<Contract> newItems = (List<Contract>) Trigger.new;
     List<Contract> oldItems = (List<Contract>) Trigger.old;
@@ -7,27 +8,33 @@ public with sharing class ContractTriggerHandler implements ITrigger {
 
 
 
-    public ContractTriggerHandler() {}
+    public ContractTriggerHandler() {
+
+    }
     public void bulkBefore() {
-        if(trigger.isInsert) {
-        //Here we will call before insert actions
+        if(trigger.isDelete) {
+        //Here we will call before delete actions
+        for (Contract c : oldItems) {
+            loggs.add(hp.deleteContract(c));
+          }
+          insert(loggs);
+          hp.sendNotification('Delete','deleted');
+          
+       
         }
     }
         
         
     public void bulkAfter() {
-        if(trigger.isInsert) {
-            //Here we will call after insert actions
-    
-            for (Contract c : newItems) {
-                
+
+        if(trigger.isInsert) { 
+            //Here we will call after insert actions         
+            for (Contract c : newItems) {             
                 loggs.add(hp.insertContract(c));}
-        
-              
               if (Schema.sObjectType.Contract.iscreateable()) {
                 insert(loggs);
                 hp.sendNotification('Insert', 'inserted');
-            
+                System.debug('cc');
             }
         
         } 
@@ -47,15 +54,12 @@ public with sharing class ContractTriggerHandler implements ITrigger {
 
         } else if(trigger.isDelete) {
         //Here we will call after delete actions
-        for (Contract c : oldItems) {
-            loggs.add(hp.deleteContract(c));
-          }
-          insert(loggs);
-          hp.sendNotification('Delete','deleted');
+       
         } else if(trigger.isUndelete) {
         //Here we will call after undelete actions
         }
         }
       
 
+	
 }

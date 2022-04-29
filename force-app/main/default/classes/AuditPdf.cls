@@ -1,7 +1,11 @@
 public with sharing class AuditPdf {
     public List<AuditContact__c> Records {get; set;}
     public List<AuditContract__c> contracts {get; set;}
-    
+    public List<AuditLead__c> Leads {get; set;}
+    public List<AuditProduct__c> Products {get; set;}
+    public List<AuditOpportunity__c> Opportunities {get; set;}
+    public List<AuditAccount__c> Accounts {get; set;}
+
     public AuditPdf() {
         this.Records =  [
             SELECT User_ID__c, Action__c, 
@@ -11,6 +15,22 @@ public with sharing class AuditPdf {
                 SELECT User_ID__c, Action__c, 
                 ChangeDate__c, ConcernedObject__c
                 FROM AuditContract__c  ORDER BY ChangeDate__c ]; 
+        this.Leads =  [
+                SELECT User_ID__c, Action__c, 
+                ChangeDate__c, ConcernedObject__c
+                FROM AuditLead__c  ORDER BY ChangeDate__c ]; 
+        this.Products =  [
+                SELECT User_ID__c, Action__c, 
+                ChangeDate__c, ConcernedObject__c
+                FROM AuditProduct__c  ORDER BY ChangeDate__c ]; 
+        this.Opportunities =  [
+                SELECT User_ID__c, Action__c, 
+                ChangeDate__c, ConcernedObject__c
+                FROM AuditOpportunity__c  ORDER BY ChangeDate__c ]; 
+        this.Accounts =  [
+                SELECT User_ID__c, Action__c, 
+                ChangeDate__c, ConcernedObject__c
+                FROM AuditAccount__c  ORDER BY ChangeDate__c ];                     
     }
     @Future(callout=true)
     @AuraEnabled

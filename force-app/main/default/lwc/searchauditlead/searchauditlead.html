@@ -1,26 +1,26 @@
 <template>
     <lightning-card title="Audit Records">
-    <div class="slds-m-around_medium">
+        <div class="slds-m-around_medium">
 
-        <lightning-input type="search" onchange={handleKeyChange} class="slds-m-bottom_small" label="Search"
-            value={searchKey} placeholder="enter action type"></lightning-input>
-        <lightning-datatable key-field="Id" data={data} columns={columns} sorted-by={sortedBy}
-            sorted-direction={sortedDirection} onsort={sortColumns} hide-checkbox-column="true" >
-        </lightning-datatable>
-        </br>
-        <lightning-layout horizontal-align="space">
-            <lightning-layout-item flexibility="auto">
-                <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler}>
-                </lightning-button>
-            </lightning-layout-item>
-            <lightning-layout-item flexibility="auto">
-                Page {page} of {totalPage}
-            </lightning-layout-item>
-            <lightning-layout-item flexibility="auto">
-                <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right"
-                    onclick={nextHandler}></lightning-button>
-            </lightning-layout-item>
-        </lightning-layout>
-    </div>
-</lightning-card>
+            <lightning-input type="search" onchange={handleKeyChange} class="slds-m-bottom_small" label="Search"
+                value={searchKey} placeholder="enter action type"></lightning-input>
+            <lightning-datatable key-field="Id" data={data} columns={columns} sorted-by={sortedBy}
+                sorted-direction={sortedDirection} onsort={sortColumns} onrowaction={handleclicks} hide-checkbox-column="true" >
+            </lightning-datatable>
+            </br>
+            <lightning-layout horizontal-align="space">
+                <lightning-layout-item flexibility="auto">
+                    <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler}>
+                    </lightning-button>
+                </lightning-layout-item>
+                <lightning-layout-item flexibility="auto">
+                    Page {page} of {totalPage}
+                </lightning-layout-item>
+                <lightning-layout-item flexibility="auto">
+                    <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right"
+                        onclick={nextHandler}></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </lightning-card>
 </template>

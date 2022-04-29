@@ -7,6 +7,7 @@ export default class ActionAudit extends LightningElement {
     @api chartConfig;
  
     isChartJsInitialized;
+
     renderedCallback() {
         if (this.isChartJsInitialized) {
             return;
@@ -17,6 +18,7 @@ export default class ActionAudit extends LightningElement {
                 this.isChartJsInitialized = true;
                 const ctx = this.template.querySelector('canvas.barChart').getContext('2d');
                 this.chart = new window.Chart(ctx, JSON.parse(JSON.stringify(this.chartConfig)));
+                ctx.onclick=this.clickHandler;
             })
             .catch(error => {
                 this.dispatchEvent(
@@ -27,5 +29,17 @@ export default class ActionAudit extends LightningElement {
                     })
                 );
             });
-    }
+        }
+
+   clickHandler(click) {
+       const points = this.chart.getElementsAtEventForMode(click, 'nearest',{intersect: true }, true);
+       if (points.length) {
+           const firstPoint = points[0];
+           console.log(firstPoint);
+           const value= this.chart.data.datasets[firstPoint.datasetIndex].data[firstPoint.index];
+           console.log(value);
+           window.open('https://www.google.com', '_blank');
+       }
+   }
+
 }

@@ -17,14 +17,18 @@ export default class LeadChart extends LightningElement {
    {
    data: [
    ],
-   backgroundColor :[
-      "rgb(255, 219, 81)",
+   backgroundColor:  [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      
+      ],
 
-      "rgb(247, 177, 69)",
-   
-      "rgb(161, 116, 47)"
-   ],
-      label:'Dataset 1'
+      borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(75, 192, 192)',
+          'rgb(153, 102, 255)',
+         ],
    }
    ],
    labels:[]

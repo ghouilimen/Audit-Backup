@@ -93,7 +93,6 @@ public with sharing class ContactTriggerHelper {
       c.is_deleted__c = true;
     }
     DataBase.update(ac);
-   // bcp=(public_contact1__x)objhlp;
      
     Blob Key = Crypto.generateAesKey(128);
     Blob data = Blob.valueOf(String.valueOf(JSON.serialize(objhlp)));
@@ -105,7 +104,8 @@ public with sharing class ContactTriggerHelper {
     bcp.ObjectId__c = (Id) objhlp.get('Id');
     bcp.prvkey__c = enckey; 
     bcp.ObjType__c =objhlp.getsobjecttype().getdescribe().getname();
-    bcp.deleteDate__c = Date.today();
+    DateTime dt = System.now();
+    bcp.deleteDate__c = dt.Date();
     Database.insertAsync(bcp);
    
     return obj;

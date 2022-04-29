@@ -3,15 +3,12 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import chartjs from '@salesforce/resourceUrl/ChartJS';
 import { loadScript } from 'lightning/platformResourceLoader';
 import getContactActions from '@salesforce/apex/AuditActions.getContactActions';
-import countContactactions from '@salesforce/apex/AuditActions.countContactactions';
 
 
 
 
 export default class contactChart extends LightningElement {
     @track listAA;
-    @track actions ;
-    actions=countContactactions();
   
    chart;
    chartjsInitialized = false;
@@ -22,21 +19,30 @@ export default class contactChart extends LightningElement {
    {
    data: [
    ],
-   backgroundColor :[
- 
-   "rgb(255, 219, 81)",
+   backgroundColor:  [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      
+      ],
 
-    "rgb(247, 177, 69)",
- 
-     "rgb(161, 116, 47)"
-   ],
-      label:'Dataset 1'
+      borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(75, 192, 192)',
+          'rgb(153, 102, 255)',
+         ],
    }
    ],
    labels:[]
    },
    options: {
     responsive : true,
+    plugins: {
+      title: {
+          display: true,
+          text: 'Custom Chart Title'
+      }
+  },
 legend : {
     position :'right'
 },
@@ -58,7 +64,7 @@ animation:{
      ]).then(() =>{
        const ctx = this.template.querySelector('canvas.donut')
        .getContext('2d');
-       this.chart = new window.Chart(ctx, this.config);
+       this.chart = new window.Chart(ctx, this.config );
      })
      .catch(error =>{
        this.dispatchEvent(

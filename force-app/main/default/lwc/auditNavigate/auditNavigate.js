@@ -9,7 +9,6 @@ export default class AuditNavigate extends NavigationMixin(LightningElement) {
                 //objectApiName: 'AuditContact__c',
                 //actionName: 'home'
                 url: 'https://wise-wolf-n2hypj-dev-ed.lightning.force.com/lightning/n/Contact_audit_details'
-               
 
             }
         })
