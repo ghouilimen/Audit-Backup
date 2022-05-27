@@ -262,7 +262,7 @@ public static List<String> getActions() {
    public static List<AuditContact__c> getCon( String searchKey, String sortBy, String sortDirection) {
   
       
-       String query = 'SELECT   ConcernedUser__c  , ChangeDate__c  , ObjectId__c , Action__c,  OldValue__c , ConcernedField__c , NewValue__c  FROM AuditContact__c '  ;
+       String query = 'SELECT   ConcernedUser__c  , ChangeDate__c  , ObjectId__c , Action__c,  ConcernedField__c , is_deleted__c FROM AuditContact__c '  ;
        if ( searchKey != null && searchKey != '' ) {
            String key = '%' + searchKey + '%'; 
            query += ' WHERE  Action__c LIKE :key';
@@ -431,6 +431,88 @@ public static List<String> getActions() {
        }
        return Database.query( query );
 }
+@AuraEnabled(cacheable=true)
+   public static List<AuditProduct__c> getupdatepro( Date searchkey, String sortBy, String sortDirection) {
 
+      String a ='update';
+
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c ,   ConcernedUser__c , ConcernedField__c , OldValue__c, NewValue__c FROM AuditProduct__c where Action__c LIKE \'%'+ a +'%\' and is_deleted__c=false  ' ;
+       if (searchkey!=null && searchkey<Date.today()) {
+        query += ' and  ChangeDate__c=:searchkey';  
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+}
+@AuraEnabled(cacheable=true)
+   public static List<AuditOpportunity__c> getupdateopp( Date searchkey, String sortBy, String sortDirection) {
+
+      String a ='update';
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c ,   ConcernedUser__c , ConcernedField__c , OldValue__c, NewValue__c FROM AuditOpportunity__c where Action__c LIKE \'%'+ a +'%\' and is_deleted__c=false ' ;
+       if (searchkey!=null && searchkey<Date.today()) {
+        query += ' and  ChangeDate__c=:searchkey';  
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+}
+@AuraEnabled(cacheable=true)
+   public static List<AuditAccount__c> getupdateacc( Date searchkey, String sortBy, String sortDirection) {
+
+      String a ='update';
+
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c ,   ConcernedUser__c , ConcernedField__c , OldValue__c, NewValue__c FROM AuditAccount__c where Action__c LIKE \'%'+ a +'%\' and is_deleted__c=false ' ;
+       if (searchkey!=null && searchkey<Date.today()) {
+        query += ' and  ChangeDate__c=:searchkey';  
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+}
+@AuraEnabled(cacheable=true)
+   public static List<AuditContact__c> getupdatecon( Date searchkey, String sortBy, String sortDirection) {
+
+      String a ='update';
+
+       String query = 'SELECT   ChangeDate__c  , ObjectId__c ,   ConcernedUser__c , ConcernedField__c , OldValue__c, NewValue__c FROM AuditContact__c where Action__c LIKE \'%'+ a +'%\' and is_deleted__c=false ' ;
+       if (searchkey!=null && searchkey<Date.today()) {
+        query += ' and  ChangeDate__c=:searchkey ';  
+       }
+       if ( sortBy != null && sortDirection != null ) {
+           query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+       }
+       return Database.query( query );
+}
+      @AuraEnabled(cacheable=true)
+        public static List<AuditContract__c> getupdatecontract( Date searchkey, String sortBy, String sortDirection) {
+
+            String a ='update';
+
+            String query = 'SELECT   ChangeDate__c  , ObjectId__c ,   ConcernedUser__c , ConcernedField__c , OldValue__c, NewValue__c FROM AuditContract__c where Action__c LIKE \'%'+ a +'%\' and is_deleted__c=false' ;
+            if (searchkey!=null && searchkey<Date.today()) {
+              query += ' and  ChangeDate__c=:searchkey';  
+            }
+            if ( sortBy != null && sortDirection != null ) {
+                query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+            }
+            return Database.query( query );
+      }
+      @AuraEnabled(cacheable=true)
+      public static List<AuditLead__c> UpdateLead( Date searchkey, String sortBy, String sortDirection) {
+
+          String a ='update';
+
+          String query = 'SELECT   ChangeDate__c  , ObjectId__c ,   ConcernedUser__c , ConcernedField__c , OldValue__c, NewValue__c FROM AuditLead__c where Action__c LIKE \'%'+ a +'%\' and is_deleted__c=false ' ;
+          if (searchkey!=null && searchkey<Date.today()) {
+            query += ' and  ChangeDate__c=:searchkey';  
+          }
+          if ( sortBy != null && sortDirection != null ) {
+              query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
+          }
+          return Database.query( query );
+    }
 }
 

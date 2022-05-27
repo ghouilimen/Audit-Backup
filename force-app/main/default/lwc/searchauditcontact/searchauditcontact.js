@@ -40,19 +40,16 @@ const columns = [
         fieldName: 'ConcernedUser__c',
         sortable: true
     },
+    {
+        label: 'is-Deleted',
+        fieldName: 'is_deleted__c',  
+        type: 'text'  },
+
     {label: 'View Details',
     type: 'button',
-    typeAttributes:  {  label: 'view', name: 'view'}}
-   
-    /*{
-        label: 'Old Value',
-        fieldName: 'OldValue__c ',    },
-    {
-        label: 'New Value',
-        fieldName: 'NewValue__c ',
-        type: 'text',
-        sortable: true
-    },*/
+    typeAttributes:  {  label: 'view', name: 'view'}},
+      
+    
 ];
 
 export default class SearchauditContact  extends NavigationMixin(LightningElement) {

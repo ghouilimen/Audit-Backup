@@ -6,46 +6,92 @@
             onclick={openModal}
             class="slds-m-left_x-small">
        </lightning-button>
-        <template if:true={isModalOpen}>
-            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+       <lightning-button variant="brand"
+            label="Backup Updated Fields"
+            title="Backup Updated Fields"
+            onclick={openModal1}
+            class="slds-m-left_x-small">
+       </lightning-button>
+      
+            <template if:true={isModalOpen}>
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                                <lightning-icon icon-name="utility:close"
+                                    alternative-text="close"
+                                    variant="inverse"
+                                    size="small" ></lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">DeletedContracts</h2>
+                        </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <lightning-input type="date" onchange={handleKeyChange} class="slds-m-bottom_small" label="Search"
+                        value={searchkey} placeholder="enter date"></lightning-input>
+                        <lightning-datatable key-field="Id" data={data} columns={columns} sorted-by={sortedBy}
+                            sorted-direction={sortedDirection} onsort={sortColumns} onrowaction={handleclicks} hide-checkbox-column="true" >
+                        </lightning-datatable>
+                        </br>
+                        <lightning-layout horizontal-align="space">
+                            <lightning-layout-item flexibility="auto">
+                                <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler}>
+                                </lightning-button>
+                            </lightning-layout-item>
+                            <lightning-layout-item flexibility="auto">
+                                Page {page} of {totalPage}
+                            </lightning-layout-item>
+                            <lightning-layout-item flexibility="auto">
+                                <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right"
+                                    onclick={nextHandler}></lightning-button>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
+                </footer>
+            </div>
+        </section>
+        </template>
+       <template if:true={isModalOpen1}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
                 <div class="slds-modal__container">
                     <header class="slds-modal__header">
-                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal1}>
                             <lightning-icon icon-name="utility:close"
                                 alternative-text="close"
                                 variant="inverse"
                                 size="small" ></lightning-icon>
                             <span class="slds-assistive-text">Close</span>
                         </button>
-                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Deleted Contracts</h2>
+                        <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Updated Contracts</h2>
                     </header>
-                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
                     <lightning-input type="date" onchange={handleKeyChange} class="slds-m-bottom_small" label="Search"
-                     value={searchkey} placeholder="enter date"></lightning-input>
-                    <lightning-datatable key-field="Id" data={data} columns={columns} sorted-by={sortedBy}
-                        sorted-direction={sortedDirection} onsort={sortColumns} onrowaction={handleclicks} hide-checkbox-column="true" >
+                    value={searchkey} placeholder="enter date"></lightning-input>
+                    <lightning-datatable key-field="Id" data={data1} columns={columns1} sorted-by={sortedBy}
+                        sorted-direction={sortedDirection} onsort={sortColumns1} onrowaction={handleclickss} hide-checkbox-column="true" >
                     </lightning-datatable>
                     </br>
                     <lightning-layout horizontal-align="space">
                         <lightning-layout-item flexibility="auto">
-                            <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler}>
+                            <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler1}>
                             </lightning-button>
                         </lightning-layout-item>
                         <lightning-layout-item flexibility="auto">
-                            Page {page} of {totalPage}
+                            Page {page1} of {totalPage1} 
                         </lightning-layout-item>
                         <lightning-layout-item flexibility="auto">
                             <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right"
-                                onclick={nextHandler}></lightning-button>
+                                onclick={nextHandler1}></lightning-button>
                         </lightning-layout-item>
                     </lightning-layout>
-               </div>
+            </div>
             <footer class="slds-modal__footer">
-                <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
+                <button class="slds-button slds-button_neutral" onclick={closeModal1} title="Cancel">Cancel</button>
             </footer>
         </div>
     </section>
-    <div class="slds-backdrop slds-backdrop_open"></div>
     </template>
     </lightning-card>
 </template>
