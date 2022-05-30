@@ -1,9 +1,12 @@
 <template>
+   
         <lightning-card title="Audit total actions" icon-name="utility:chart">
-        <template if:true={chartConfiguration}>
-            <!--<c-actionAudit chart-config={chartConfiguration}></c-actionAudit>-->
-            <c-action-audit  chart-config={chartConfiguration} ></c-action-audit>
-        </template>
-</lightning-card>
+            <template if:true={chartConfiguration}>
+                <!--<c-actionAudit chart-config={chartConfiguration}></c-actionAudit>-->
+                <c-action-audit  chart-config={chartConfiguration} ></c-action-audit>
+            </template>
+        </lightning-card>
+
+        
     
 </template>
